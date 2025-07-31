@@ -32,6 +32,7 @@ import { cn } from "@/lib/utils";
 // import { createAdmin, createEmployee } from "@/lib/actions/onboarding";
 // import { set } from "date-fns";
 import { toast } from "sonner";
+import { createAdmin, createEmployee } from "@/lib/actions/onboarding";
 
 const employeeSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(55),
@@ -111,27 +112,27 @@ const OnboardingForm = ({
     setIsSubmitting(true);
     setError(null);
 
-    // try {
-    //   const response = await createEmployee(
-    //     data.department || undefined,
-    //     user.id,
-    //     data.invitationCode
-    //   );
+    try {
+      const response = await createEmployee(
+        data.department || undefined,
+        user.id,
+        data.invitationCode
+      );
 
-    //   console.log(response);
+      console.log(response);
 
-    //   if (response?.success) {
-    //     console.log("Employee created successfully");
-    //     canRedirect = true;
-    //   }
-    // } catch (error: unknown) {
-    //   console.error(`Error creating employee: ${error}`);
-    //   setError(
-    //     error instanceof Error ? error.message : "Failed to complete onboarding"
-    //   );
-    // } finally {
-    //   setIsSubmitting(false);
-    // }
+      if (response?.success) {
+        console.log("Employee created successfully");
+        canRedirect = true;
+      }
+    } catch (error: unknown) {
+      console.error(`Error creating employee: ${error}`);
+      setError(
+        error instanceof Error ? error.message : "Failed to complete onboarding"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
 
     if (canRedirect) {
       console.log("Redirecting to employee");
@@ -152,28 +153,28 @@ const OnboardingForm = ({
     setIsSubmitting(true);
     setError(null);
 
-    // try {
-    //   const response = await createAdmin(
-    //     data.companyName,
-    //     data.companyWebsite || "",
-    //     data.companyLogo || "",
-    //     user.id
-    //   );
+    try {
+      const response = await createAdmin(
+        data.companyName,
+        data.companyWebsite || "",
+        data.companyLogo || "",
+        user.id
+      );
 
-    //   if (response?.success) {
-    //     console.log("Admin created successfully");
-    //     canRedirect = true;
-    //   }
-    // } catch (error) {
-    //   console.error(`Error creating admin: ${error}`);
-    //   setError(
-    //     error instanceof Error
-    //       ? error.message
-    //       : "Failed to complete onboarding. Please try again. "
-    //   );
-    // } finally {
-    //   setIsSubmitting(false);
-    // }
+      if (response?.success) {
+        console.log("Admin created successfully");
+        canRedirect = true;
+      }
+    } catch (error) {
+      console.error(`Error creating admin: ${error}`);
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Failed to complete onboarding. Please try again. "
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
 
     if (canRedirect) {
       console.log("Redirecting to admin");

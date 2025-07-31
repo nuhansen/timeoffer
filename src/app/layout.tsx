@@ -4,6 +4,7 @@ import {
 } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import { Toaster } from "@/components/ui/sonner"
 import MaxWidthWrapper from '@/components/ui/MaxWidthWrapper'
 
 const geistSans = Geist({
@@ -33,6 +34,7 @@ export default function RootLayout({
           <MaxWidthWrapper>
             {children}
           </MaxWidthWrapper>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
